@@ -290,7 +290,7 @@ This message shows that your installation appears to be working correctly.
 ```
 
 
-## Great Job, Now start with the examples folder to write your first Dockerfile and play with it.
+## Great Job, Now start with the examples folder to write your first Dockerfile and move to the next examples. Happy Learning :)
 
 
 
