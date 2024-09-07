@@ -1,9 +1,5 @@
 FROM python:3
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install django==3.2
 
 COPY . .
 
