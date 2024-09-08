@@ -23,7 +23,7 @@ pipeline {
 		script{
 		    sh '''
 		    echo 'Docker Hub Login'
-		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdn
+		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdin
 		    '''
 }
 }
