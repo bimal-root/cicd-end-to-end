@@ -14,11 +14,11 @@ spec:
     spec:
       initContainers:
       - name: migrate
-        image: bimalrajsharma07/todoapp:v2
+        image: bimalrajsharma07/todoapp:v${BUILD_NUMBER}
         command: ["python", "manage.py", "migrate"]
       containers:
       - name: todoapp
-        image: bimalrajsharma07/todoapp:v2
+        image: bimalrajsharma07/todoapp:v${BUILD_NUMBER}
         ports:
         - containerPort: 8000
         command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
