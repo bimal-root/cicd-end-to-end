@@ -61,7 +61,10 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'b085035d-9661-4890-8c04-2d41743fa83a', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
+			pwd
                         cat deploy.yaml
+			ls -la k8s_Deploy/
+   			pwd
 			sed -i '' "s/v2/v${BUILD_NUMBER}/g" k8s_Deploy/deploy.yaml
                         cat k8s_Deploy/deploy.yaml
                         git add k8s_Deploy/deploy.yaml
