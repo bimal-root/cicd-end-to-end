@@ -5,7 +5,7 @@ pipeline {
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
 	DOCKER_USERNAME = 'bimalrajsharma07'
-	DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
+	DOCKER_CREDENTIALS_ID = 'docker-id'
     }
     
     stages {
@@ -17,17 +17,6 @@ pipeline {
                 branch: 'main'
            }
         }
-
-	stage('Login Docker Hub') {
-	    steps{
-		script{
-		    sh '''
-		    echo 'Docker Hub Login'
-		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdin
-		    '''
-}
-}
-}
 
         stage('Build Docker'){
             steps{
@@ -43,9 +32,10 @@ pipeline {
         stage('Push the artifacts'){
            steps{
                 script{
-                    sh '''
-		    echo 'Login again for Docker Push..'
-		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdin
+		    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+		    sh '''
+		    echo 'Logging for Docker Push..'
+		    echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
                     echo 'Push to Repo'
                     docker push bimalrajsharma07/todoapp:v${BUILD_NUMBER}
                     '''
