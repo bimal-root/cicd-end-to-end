@@ -4,7 +4,6 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-	DOCKER_USERNAME = 'bimalrajsharma07'
 	DOCKER_CREDENTIALS_ID = 'docker-id'
     }
     
