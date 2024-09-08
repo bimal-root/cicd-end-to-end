@@ -67,7 +67,7 @@ pipeline {
                         cat deploy.yaml
 			ls -la
    			pwd
-			sed -i 's/v2/v${BUILD_NUMBER}/g' deploy.yaml
+			sed -i 's/v2/v"${BUILD_NUMBER}"/g' deploy.yaml
                         cat deploy.yaml
 			git config user.name "Bimal Sharma"
                         git config user.email "test@example.com"
