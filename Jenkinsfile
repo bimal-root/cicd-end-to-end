@@ -46,7 +46,7 @@ pipeline {
         stage('Checkout K8S manifest SCM') {
             steps {
                 git credentialsId: 'b085035d-9661-4890-8c04-2d41743fa83a', 
-                    url: 'https://github.com/bimal-root/cicd-end-to-end/k8s_Deploy.git',
+                    url: 'https://github.com/bimal-root/cicd-end-to-end.git',
                     branch: 'main'
 		
 		dir('k8s_Deploy'){
@@ -66,7 +66,7 @@ pipeline {
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://github.com/bimal-root/cicd-end-to-end/k8s_Deploy.git HEAD:main
+                        git push https://github.com/bimal-root/cicd-end-to-end.git HEAD:main
                         '''                        
                     }
                 }
