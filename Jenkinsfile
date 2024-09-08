@@ -63,7 +63,7 @@ pipeline {
                         sh '''
 			pwd
                         cat deploy.yaml
-			ls -la k8s_Deploy/
+			ls -la
    			pwd
 			sed -i '' "s/v2/v${BUILD_NUMBER}/g" k8s_Deploy/deploy.yaml
                         cat k8s_Deploy/deploy.yaml
