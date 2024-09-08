@@ -4,6 +4,8 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
+	DOCKER_USERNAME = 'bimalrajsharma07'
+	DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
     }
     
     stages {
@@ -16,11 +18,22 @@ pipeline {
            }
         }
 
+	stage('Login Docker Hub') {
+	    steps{
+		script{
+		    sh '''
+		    echo 'Docker Hub Login'
+		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdn
+		    '''
+}
+}
+}
+
         stage('Build Docker'){
             steps{
                 script{
                     sh '''
-                    echo 'Buid Docker Image'
+		    echo 'Buid Docker Image'
                     docker build -t bimalrajsharma07/todoapp:v${BUILD_NUMBER} .
                     '''
                 }
