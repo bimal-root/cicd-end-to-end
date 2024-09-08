@@ -21,7 +21,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t bimalrajsharma07/todoapp:${BUILD_NUMBER} .
+                    docker build -t bimalrajsharma07/todoapp:v${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Push to Repo'
-                    docker push bimalrajsharma07/todoapp:${BUILD_NUMBER}
+                    docker push bimalrajsharma07/todoapp:v${BUILD_NUMBER}
                     '''
                 }
             }
@@ -52,7 +52,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'b085035d-9661-4890-8c04-2d41743fa83a', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
                         cat deploy.yaml
-                        sed -i '' "s/v2/${BUILD_NUMBER}/g" deploy.yaml
+                        sed -i '' "s/v2/v${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
