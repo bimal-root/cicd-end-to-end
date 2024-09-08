@@ -4,6 +4,8 @@ pipeline {
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+	GIT_TOKEN_CREDENTIALS_ID = 'git-pat-id' // Your PAT credential ID in Jenkins
+
     }
     
     stages {
@@ -55,11 +57,11 @@ pipeline {
             }
         }
         
-        stage('Update K8S manifest & push to Repo') {
+        stage('Checkout K8S manifest & Push') {
             steps {
 		dir('k8s_Deploy'){
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'b085035d-9661-4890-8c04-2d41743fa83a', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([string(credentialsId: GIT_TOKEN_CREDENTIALS_ID, variable: 'GIT_TOKEN')]) {
                         sh '''
 			pwd
                         cat deploy.yaml
@@ -67,10 +69,11 @@ pipeline {
    			pwd
 			sed -i 's/v2/v${BUILD_NUMBER}/g' deploy.yaml
                         cat deploy.yaml
+			git config user.name "Bimal Sharma"
+                        git config user.email "test@example.com"
                         git add deploy.yaml
-                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                        git remote -v
-			git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/bimal-root/cicd-end-to-end.git HEAD:main
+                        git commit -m "Updated the deploy yaml | Jenkins Pipeline"
+                        git push https://bimal-root:${GIT_TOKEN}@github.com/bimal-root/cicd-end-to-end.git HEAD:main
                         '''  
 		    	}
                     }
