@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        DOCKER_CREDENTIALS_ID = 'docker-id'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
     }
     
     stages {
@@ -32,8 +32,10 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
                         echo 'Logging for Docker Push..'
-                        echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
-                        echo 'Push to Repo'
+                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                        '''
+			sh '''
+			echo 'Push to Repo'
                         docker push bimalrajsharma07/todoapp:v${BUILD_NUMBER}
                         '''
                     }
