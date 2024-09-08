@@ -15,7 +15,7 @@ COPY . .
 
 # Run migrations at runtime instead of during build time
 # This avoids database dependency issues during build
-CMD ["python", "manage.py", "migrate", "&&", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # Expose the necessary port
 EXPOSE 8000
