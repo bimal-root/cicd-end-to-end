@@ -44,6 +44,8 @@ pipeline {
            steps{
                 script{
                     sh '''
+		    echo 'Login again for Docker Push..'
+		    echo "$DOCKER_CREDENTIALS_ID" | docker login -u "$DOCKER_USERNAME" --password-stdin
                     echo 'Push to Repo'
                     docker push bimalrajsharma07/todoapp:v${BUILD_NUMBER}
                     '''
