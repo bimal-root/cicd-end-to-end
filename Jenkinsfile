@@ -48,6 +48,10 @@ pipeline {
                 git credentialsId: 'b085035d-9661-4890-8c04-2d41743fa83a', 
                     url: 'https://github.com/bimal-root/cicd-end-to-end/k8s_Deploy.git',
                     branch: 'main'
+		
+		dir('k8s_Deploy'){
+		    sh 'ls -la'
+		}
             }
         }
         
