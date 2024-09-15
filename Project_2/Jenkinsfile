@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
 	  sh '''
-	  docker build -t --name bimalrajsharma07/python-app:${BUILD_NUMBER} .
+	  docker build -t bimalrajsharma07/python-app:${BUILD_NUMBER} .
 	  '''
 }
 }
