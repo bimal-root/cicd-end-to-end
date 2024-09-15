@@ -16,15 +16,42 @@ pipeline {
           }
 }
 
-    stage('List files') {
+    stage('Move Subfolder and List files') {
       steps {
+	dir('Project_2'){
         script {
-	  sh '''
+	  sh '''  
 	  pwd && ls -la
 	  '''
+}
 }	
 }
 }
+    stage('Build Docker Image') {
+      steps {
+        script {
+	  sh '''
+	  docker build -t --name bimalrajsharma07/python-app:${BUILD_NUMBER} .
+	  '''
+}
+}
+}
+    stage('Docker Login and Push') {
+      steps {
+        script {
+	  withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+	    sh '''
+	    echo "Login to Docker Hub.."
+	    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+	    echo "Pushing image to docker hub"
+	    docker push bimalrajsharma07/python-app:${BUILD_NUMBER}
+	    '''
+}
+}
+}	
+}
+
+
 }
 }
 
