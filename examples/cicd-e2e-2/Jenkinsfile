@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+    
+  environment {	
+    IMAGE_TAG = "${BUILD_NUMBER}"
+    DOCKER_CREDENTIALS_ID = "docker_id"
+    GITHUB_CREDENTIALS_ID = "git_pat_id"
+}
+  stages {
+  
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/bimal-root/Docker-Zero-to-Hero.git',
+	  branch: 'main',
+	  credentialsId: 'git_pat_id'
+          
+
+}	
+}
+}
+}
