@@ -13,9 +13,18 @@ pipeline {
         git url: 'https://github.com/bimal-root/cicd-end-to-end.git',
 	  branch: 'main',
 	  credentialsId: 'git_pat_id'
-          
+          }
 
+    stage('List files') {
+      steps {
+        script {
+	  sh '''
+	  pwd && ls -la
+	  '''
 }	
+}
+
+}
 }
 }
 }
