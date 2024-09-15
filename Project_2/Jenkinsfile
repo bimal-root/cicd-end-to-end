@@ -50,6 +50,17 @@ pipeline {
 }
 }	
 }
+    stage('Checkout K8S Manifest') {
+      steps {
+        git url: "https://github.com/bimal-root/cicd-end-to-end.git"
+	branch: 'main'
+	credentialsId: 'git_pat_id'
+	
+	dir('Project_2/k8s_Deploy'){
+	  sh 'ls -la'
+}
+}
+}
 
 
 }
