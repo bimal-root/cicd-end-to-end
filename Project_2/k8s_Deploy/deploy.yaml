@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-app
+  name: myapp
   namespace: default
   labels:
-    app: python-app
+    app: myapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: python-app
+      app: myapp
   template:
     metadata:
       labels:
-        app: python-app
+        app: myapp
     spec:
       containers:
-      - name: python-app
-        image: bimalrajsharma07/python-app:7
+      - name: myapp
+        image: bimalrajsharma07/myimage:1
         ports:
-        - containerPort: 9000
+        - containerPort: 8000
 
