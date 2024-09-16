@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
 	  sh '''
-	  docker build -t bimalrajsharma07/myapp:${BUILD_NUMBER} .
+	  docker build -t bimalrajsharma07/myimage:${BUILD_NUMBER} .
 	  '''
 }
 }
@@ -44,7 +44,7 @@ pipeline {
 	    echo "Login to Docker Hub.."
 	    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 	    echo "Pushing image to docker hub"
-	    docker push bimalrajsharma07/myapp:${BUILD_NUMBER}
+	    docker push bimalrajsharma07/myimage:${BUILD_NUMBER}
 	    '''
 }
 }
