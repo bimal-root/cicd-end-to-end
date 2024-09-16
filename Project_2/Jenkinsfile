@@ -61,7 +61,27 @@ pipeline {
 }
 }
 }
-
+    stage('Manifest SCM checkout and Push changes') {
+      steps {
+        dir('Project_2/k8s_Deploy') {
+	script {
+	  withCredentials([string(credentialsId: GITHUB_CREDENTIALS_ID, variable: 'GIT_TOKEN')]) {
+	    sh '''
+	    pwd
+	    cat deploy.yaml
+	    sed -i "s/1/${BUILD_NUMBER}/g" deploy.yaml
+	    cat deploy.yaml
+	    git config user.name "Bimal Sharma"
+	    git config user.email "test123@example.com"
+	    git add deploy.yaml
+	    git commit -m "Manifest changes for Image Tag | Jenkins Pipeline"
+	    git push https://bimal-root:${GIT_TOKEN}@github.com/bimal-root/cicd-end-to-end.git HEAD:main
+	    '''
+}
+}
+}
+}
+}
 
 }
 }
